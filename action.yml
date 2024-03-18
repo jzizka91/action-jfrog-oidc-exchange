@@ -1,0 +1,18 @@
+---
+name: jfrog-oidc-exchange
+description: Perform OIDC exchange to obtain JFrog's credentials from JFfrog platform
+inputs:
+  audiance:
+    description: Jfrog audiance
+    required: false
+    default: jfrog-github
+  integration:
+    description: Jfrog integration
+    required: false
+    default: github-oidc-integration
+runs:
+  using: docker
+  image: Dockerfile
+  args:
+    - ${{ inputs.audiance }}
+    - ${{ inputs.integration }}
