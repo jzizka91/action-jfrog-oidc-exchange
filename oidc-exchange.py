@@ -22,7 +22,7 @@ permissions:
 Learn more at https://docs.github.com/en/actions/deployment/security-hardening-your-deployments/about-security-hardening-with-openid-connect#adding-permissions-settings.
 """
 
-# # Rendered if the token exchange fails due to unsuccessful id_token verification.
+# Rendered if the token exchange fails due to unsuccessful id_token verification.
 TOKEN_RESPONSE_VEVERIFICATION_FAILED = """
 Token exchange failed: verification produced {status_code} response.
 
@@ -38,6 +38,11 @@ This strongly suggests a server configuration or downtime issue; wait
 a few minutes and try again.
 """
 
+class CustomException(Exception):
+    def __init__(self,msg):
+        self.msg=msg
+        print( 'custom exception occurred')
+
 def get_normalized_input(name: str):
     name = f"INPUT_{name.upper()}"
     return os.getenv(name)
@@ -47,7 +52,9 @@ def debug(msg: str):
 
 jfrog_oidc_audience = get_normalized_input("audiance")
 jfrog_oidc_integration = get_normalized_input("integration")
-jfrog_token_exchange_url = f"https://datamole.jfrog.io/access/api/v1/oidc/token"
+jfrog_token_exchange_url = f'https://{get_normalized_input("jfrog-hostname")}.jfrog.io/access/api/v1/oidc/token'
+
+print(jfrog_token_exchange_url)
 
 debug(f"selected exchange endpoint: {jfrog_token_exchange_url}")
 
@@ -72,6 +79,8 @@ try:
         },
     )
     token_resp.raise_for_status()
+    if token_resp.status_code == 302:
+        exit("Error:302")
 except requests.HTTPError as http_error:
     if http_error.response.status_code == 403:
         exit(

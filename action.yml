@@ -10,9 +10,13 @@ inputs:
     description: Jfrog integration
     required: false
     default: github-oidc-integration
+  jfrog-hostname:
+    description: Jfrog hostname
+    required: true
 runs:
   using: docker
   image: Dockerfile
   args:
     - ${{ inputs.audiance }}
     - ${{ inputs.integration }}
+    - ${{ inputs.jfrog-hostname }}

@@ -18,7 +18,7 @@ jobs:
       #packages: read # OPTIONAL: Required if the job is using a container image.
     steps:
       - name: Perform oidc-exchange to obtain JFrog's credentials.
-        uses: datamole-ai/core-tools-jfrog-oidc-exchange/v0.1
+        uses: jzizka91/action-jfrog-oidc-exchange/v0.1
       - name: Publish platform-specific distribution packages
         run: <publish-code>
 ```

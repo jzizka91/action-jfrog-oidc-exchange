@@ -1,8 +1,8 @@
 FROM python:3.12-slim
 
-LABEL "maintainer" "Jan Zizka jan.zizka@datamole.cz>"
-LABEL "repository" "https://github.com/datamole-ai/jfrog-oidc-change"
-LABEL "homepage" "https://github.com/datamole-ai/jfrog-oidc-change"
+LABEL "maintainer" "Jan Zizka johnzizka91@gmail.com>"
+LABEL "repository" "https://github.com/jzizka91/action-jfrog-oidc-exchange"
+LABEL "homepage" "https://github.com/jzizka91/action-jfrog-oidc-exchange"
 
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
